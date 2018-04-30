@@ -27,6 +27,16 @@ class Perceptron {
     }
   }
 
+  guessY(x) {
+    // w0x + w1y + w2biass
+    // w1y = -w2biass - w0x
+    // y = - w2/w1 * biass - w0/w1 * x
+    return (
+      -this.weights[2] / this.weights[1] * 1 -
+      this.weights[0] / this.weights[1] * x
+    );
+  }
+
   toString() {
     console.log(this);
   }

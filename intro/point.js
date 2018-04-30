@@ -1,8 +1,22 @@
+function fn(x) {
+  return 0.3 * x + 0.2;
+}
+
 class Point {
-  constructor() {
-    this.x = random(width);
-    this.y = random(height);
-    this.label = this.x > this.y ? 1 : -1;
+  constructor(x = random(-1, 1), y = random(-1, 1)) {
+    this.x = x;
+    this.y = y;
+
+    const Y = fn(this.x);
+    this.label = this.y > Y ? 1 : -1;
+  }
+
+  get px() {
+    return map(this.x, -1, 1, 0, width);
+  }
+
+  get py() {
+    return map(this.y, -1, 1, width, 0);
   }
 
   show() {
@@ -13,6 +27,6 @@ class Point {
     } else {
       fill(0);
     }
-    ellipse(this.x, this.y, 32, 32);
+    ellipse(this.px, this.py, 16, 16);
   }
 }
