@@ -7,6 +7,18 @@ class Matrix {
       .map(() => Array(cols).fill(0));
   }
 
+  static fromArray(input_array) {
+    const m = new Matrix(input_array.length, 1);
+    m.map((_, i, j) => input_array[i]);
+    return m;
+  }
+
+  toArray() {
+    let array = [];
+    this.map(value => array.push(value));
+    return array;
+  }
+
   map(fn) {
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
@@ -16,7 +28,7 @@ class Matrix {
   }
 
   randomize() {
-    this.map(_ => Math.floor(Math.random() * 10));
+    this.map(_ => Math.random() * 2 - 1);
   }
   size() {
     console.log('(' + this.rows + ' x ' + this.cols + ')');
@@ -39,7 +51,7 @@ class Matrix {
 
   add(n) {
     if (n instanceof Matrix) {
-      this.map(value, i, j => value + n.values[i][j]);
+      this.map((value, i, j) => value + n.values[i][j]);
     } else if (typeof n === 'number') {
       this.map(value => value + n);
     } else {
