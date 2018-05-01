@@ -32,10 +32,24 @@ class NeuralNetwork {
     output.add(this.bias_o);
     output.map(sigmoid);
 
-    return output.toArray();
+    return output;
   }
 
-  train(inputs, answer) {
-    // TODO
+  train(inputs_array, targets_array) {
+    let outputs = this.feedforward(inputs_array);
+    let targets = Matrix.fromArray(targets_array);
+
+    // ERRORS = TARGETS - OUTPUTS
+    let output_errors = Matrix.subtract(targets, outputs);
+
+    let hiden_errors = Matrix.multiply(
+      Matrix.transpose(this.weights_ho),
+      output_errors
+    );
+
+    outputs.print();
+    targets.print();
+    output_errors.print();
+    hiden_errors.print();
   }
 }

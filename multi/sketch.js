@@ -21,8 +21,11 @@ function setup() {
 
   nn = new NeuralNetwork(2, 2, 1);
   inputs = [1, 0];
-  let output = nn.feedforward(inputs);
-  console.log(output);
+  targets = [1];
+  nn.train(inputs, targets);
+
+  // let output = nn.feedforward(inputs);
+  // console.log(output.toArray());
 }
 
 function draw() {}

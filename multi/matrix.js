@@ -38,17 +38,6 @@ class Matrix {
     console.table(this.values);
   }
 
-  transpose() {
-    const m = new Matrix(this.cols, this.rows);
-    for (let i = 0; i < m.rows; i++) {
-      for (let j = 0; j < m.cols; j++) {
-        m.values[i][j] = this.values[j][i];
-      }
-    }
-
-    return m;
-  }
-
   add(n) {
     if (n instanceof Matrix) {
       this.map((value, i, j) => value + n.values[i][j]);
@@ -68,6 +57,17 @@ class Matrix {
     }
   }
 
+  static transpose(m1) {
+    const m = new Matrix(m1.cols, m1.rows);
+    for (let i = 0; i < m.rows; i++) {
+      for (let j = 0; j < m.cols; j++) {
+        m.values[i][j] = m1.values[j][i];
+      }
+    }
+
+    return m;
+  }
+
   static multiply(m1, m2) {
     if (m1 instanceof Matrix && m2 instanceof Matrix) {
       // matrix product
@@ -84,6 +84,26 @@ class Matrix {
           }
 
           m.values[i][j] = sum;
+        }
+      }
+
+      return m;
+    } else {
+      throw new Error(
+        typeof m1 + ' and ' + typeof m2 + ' needs to be of Matrix type'
+      );
+    }
+  }
+
+  static subtract(m1, m2) {
+    if (m1 instanceof Matrix && m2 instanceof Matrix) {
+      if (m1.cols !== m2.cols || m1.rows !== m2.rows) {
+        throw new Error('Matrices are not the same dimensions');
+      }
+      const m = new Matrix(m1.rows, m1.cols);
+      for (let i = 0; i < m.rows; i++) {
+        for (let j = 0; j < m.cols; j++) {
+          m.values[i][j] = m1.values[i][j] - m2.values[i][j];
         }
       }
 
