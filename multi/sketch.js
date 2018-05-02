@@ -19,9 +19,9 @@ function setup() {
   // const m4 = Matrix.fromArray(array);
   // m4.print();
 
-  nn = new NeuralNetwork(2, 2, 1);
+  nn = new NeuralNetwork(2, 2, 2);
   inputs = [1, 0];
-  targets = [1];
+  targets = [1, 0];
   nn.train(inputs, targets);
 
   // let output = nn.feedforward(inputs);

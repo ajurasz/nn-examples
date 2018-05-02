@@ -49,7 +49,9 @@ class Matrix {
   }
 
   multiply(n) {
-    if (typeof n === 'number') {
+    if (n instanceof Matrix) {
+      this.map((value, i, j) => value * n.values[(i, j)]);
+    } else if (typeof n === 'number') {
       // scalar product
       this.map(value => value * n);
     } else {
@@ -65,6 +67,16 @@ class Matrix {
       }
     }
 
+    return m;
+  }
+
+  static map(m1, fn) {
+    const m = new Matrix(m1.rows, m1.cols);
+    for (let i = 0; i < m.rows; i++) {
+      for (let j = 0; j < m.cols; j++) {
+        m.values[i][j] = fn(m1.values[i][j], i, j);
+      }
+    }
     return m;
   }
 
