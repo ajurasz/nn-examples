@@ -51,6 +51,11 @@ class NeuralNetwork {
     // ERRORS = TARGETS - OUTPUTS
     let output_errors = Matrix.subtract(targets, outputs.output);
 
+    let hiden_errors = Matrix.multiply(
+      Matrix.transpose(this.weights_ho),
+      output_errors
+    );
+
     // Delta weights HO
     let gradient_ho = Matrix.map(outputs.output, dsigmoid);
     gradient_ho.multiply(output_errors);
@@ -63,38 +68,31 @@ class NeuralNetwork {
     this.weights_ho.add(delta_weights_ho);
     this.bias_o.add(gradient_ho);
 
-    // ---
-
-    let hiden_errors = Matrix.multiply(
-      Matrix.transpose(this.weights_ho),
-      output_errors
-    );
-
     // Delta weights IH
     let gradient_ih = Matrix.map(outputs.hidden, dsigmoid);
     gradient_ih.multiply(hiden_errors);
     gradient_ih.multiply(this.learning_rate);
     let delta_weights_ih = Matrix.multiply(
       gradient_ih,
-      Matrix.transpose(Matrix.fromArray(targets_array))
+      Matrix.transpose(Matrix.fromArray(inputs_array))
     );
 
     this.weights_ih.add(delta_weights_ih);
     this.bias_h.add(gradient_ih);
 
-    console.log('output:');
-    outputs.output.print();
+    // console.log('output:');
+    // outputs.output.print();
 
-    console.log('hidden:');
-    outputs.hidden.print();
+    // console.log('hidden:');
+    // outputs.hidden.print();
 
-    console.log('targets:');
-    targets.print();
+    // console.log('targets:');
+    // targets.print();
 
-    console.log('output error:');
-    output_errors.print();
+    // console.log('output error:');
+    // output_errors.print();
 
-    console.log('hidden error:');
-    hiden_errors.print();
+    // console.log('hidden error:');
+    // hiden_errors.print();
   }
 }
