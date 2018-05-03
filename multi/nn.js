@@ -24,7 +24,11 @@ class NeuralNetwork {
     this.bias_o = new Matrix(this.outputNodes, 1);
     this.bias_o.randomize();
 
-    this.learning_rate = 0.01;
+    this.learning_rate = 0.1;
+  }
+
+  setLearningRate(learning_rate) {
+    this.learning_rate = learning_rate;
   }
 
   feedforward(inputs_array) {
